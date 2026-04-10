@@ -38,11 +38,13 @@ if source_upload and reference_upload:
 
                 # 1. Analyze the car's "DNA"
                 analysis_prompt = """
-                Identify the car in this image. List its: 
-                - Make/Model/Year (if identifiable)
-                - Primary paint color and finish
-                - Specific unique features (e.g., hood scoops, stripes, wheel type, tire branding).
-                Return the result as a concise, descriptive paragraph for an image generator.
+                Analyze this source car image and extract its visual DNA.
+                Describe:
+                - The base Make and Model (CRITICAL: Avoid using specific trim package names like 'Mach 1', 'GT', or 'SS' as these cause AI to hallucinate factory features. Just use the base model, e.g., '1970 Ford Mustang').
+                - The primary paint color and finish.
+                - Physically describe ONLY the visible decals, stripes, aero pieces (spoilers, splitters), and wheel types.
+                
+                CRITICAL: YOU MUST NOT hallucinate or guess any features that are not explicitly visible in this specific photo. Do not assume factory defaults. Return the result as a concise, descriptive paragraph.
                 """
                 
                 # Using Gemini 2.5 Flash for the vision analysis
@@ -78,6 +80,9 @@ if source_upload and reference_upload:
                 CRITICAL EXACT MATCH INSTRUCTION:
                 You MUST replicate the minute spatial details of the camera and car orientation exactly as described below. Pay absolute strict attention to the EXACT camera elevation, pitch, and the vehicle's yaw/facing direction:
                 {pose_description}
+                
+                CRITICAL FEATURE INSTRUCTION:
+                DO NOT add any spoilers, decals, stripes, factory trim packages, scoops, or modifications that are not explicitly written in the vehicle description above. The vehicle must remain exactly as described physically.
                 
                 Ensure the background is a seamless studio cyclorama. Do not deviate from the specified camera angle, elevation, or lighting setup.
                 """
