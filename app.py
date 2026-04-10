@@ -61,21 +61,21 @@ if source_upload and reference_upload:
                 Ensure clean, controlled reflections and a subtle, soft grounding shadow directly beneath the tires, identical to the lighting quality of the reference.
                 """
 
-                # Using Gemini 2.5 Flash for generating the final image
-                response = client.models.generate_content(
-                    model="gemini-2.5-flash",
-                    contents=[final_prompt, reference_img],
-                    config=types.GenerateContentConfig(
-                        response_modalities=["IMAGE"]
+                # Using Imagen 3 for generating the final image
+                response = client.models.generate_images(
+                    model="imagen-3.0-generate-001",
+                    prompt=final_prompt,
+                    config=types.GenerateImagesConfig(
+                        number_of_images=1,
+                        output_mime_type="image/jpeg"
                     )
                 )
                 
                 # 3. Display the result
-                for part in response.candidates[0].content.parts:
-                    if part.inline_data:
-                        final_image = PIL.Image.open(io.BytesIO(part.inline_data.data))
-                        st.write("### Result")
-                        st.image(final_image, caption="Final Studio Shot", use_container_width=True)
+                for generated_image in response.generated_images:
+                    final_image = PIL.Image.open(io.BytesIO(generated_image.image.image_bytes))
+                    st.write("### Result")
+                    st.image(final_image, caption="Final Studio Shot", use_container_width=True)
                         
             except Exception as e:
                 st.error(f"An error occurred: {e}")
