@@ -94,8 +94,7 @@ if source_upload and reference_upload:
                     prompt=final_prompt,
                     config=types.GenerateImagesConfig(
                         number_of_images=1,
-                        output_mime_type="image/jpeg",
-                        negative_prompt="rear wing spoiler, large side stripes, text, lettering, Mach 1 badges, GT badges, extra aerodynamic modifications"
+                        output_mime_type="image/jpeg"
                     )
                 )
                 
