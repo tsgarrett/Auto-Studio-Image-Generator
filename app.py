@@ -41,6 +41,7 @@ if source_upload and reference_upload:
                 Analyze this source car image and extract its visual DNA.
                 Describe:
                 - The base Make and Model (CRITICAL: Avoid using specific trim package names like 'Mach 1', 'GT', or 'SS' as these cause AI to hallucinate factory features. Just use the base model, e.g., '1970 Ford Mustang').
+                - The explicit body style (e.g., 2-door coupe vs 4-door sedan/hardtop) based on the visible door cutlines.
                 - The primary paint color and finish.
                 - The explicit headlight and grille configuration (e.g., "horizontally side-by-side dual headlights" vs "vertically stacked headlights"). This is critical to prevent the image generator from using the wrong model year's front fascia!
                 - Physically describe ONLY the visible decals, stripes, aero pieces (spoilers, splitters), and wheel types.
