@@ -63,7 +63,7 @@ if source_upload and reference_upload:
 
                 # Using Imagen 3 for generating the final image
                 response = client.models.generate_images(
-                    model="imagen-3.0-generate-001",
+                    model="imagen-3.0-generate-002",
                     prompt=final_prompt,
                     config=types.GenerateImagesConfig(
                         number_of_images=1,
