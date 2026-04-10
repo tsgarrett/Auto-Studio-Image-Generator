@@ -8,15 +8,6 @@ client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 st.set_page_config(page_title="Auto Studio Generator", layout="centered")
 
-st.sidebar.title("Debug Info")
-if st.sidebar.button("Show Available Models"):
-    try:
-        model_names = [m.name for m in client.models.list()]
-        st.sidebar.write("Models you have access to:")
-        st.sidebar.write(model_names)
-    except Exception as e:
-        st.sidebar.error(f"Failed to list: {e}")
-
 st.title("🚗 Auto Studio Image Generator")
 st.write("Upload a source car and a reference image to transfer the studio lighting and pose!")
 
@@ -52,9 +43,9 @@ if source_upload and reference_upload:
                 Return the result as a concise, descriptive paragraph for an image generator.
                 """
                 
-                # Using Gemini 3.1 Flash for the vision analysis
+                # Using Gemini 2.5 Flash for the vision analysis
                 analysis_res = client.models.generate_content(
-                    model="gemini-3.1-flash",
+                    model="gemini-2.5-flash",
                     contents=[analysis_prompt, source_img]
                 )
                 car_description = analysis_res.text
@@ -69,9 +60,9 @@ if source_upload and reference_upload:
                 Ensure clean, controlled reflections and a subtle, soft grounding shadow directly beneath the tires, identical to the lighting quality of the reference.
                 """
 
-                # Using the Nano Banana 2 (Gemini 3.1 Flash Image) model
+                # Using Gemini 2.5 Flash for generating the final image
                 response = client.models.generate_content(
-                    model="gemini-3.1-flash-image",
+                    model="gemini-2.5-flash",
                     contents=[final_prompt, reference_img]
                 )
                 
