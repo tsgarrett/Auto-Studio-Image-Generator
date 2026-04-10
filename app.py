@@ -41,7 +41,8 @@ if source_upload and reference_upload:
                 Analyze this source car image and extract its visual DNA.
                 Describe:
                 - The base Make and Model (CRITICAL: Avoid using specific trim package names like 'Mach 1', 'GT', or 'SS' as these cause AI to hallucinate factory features. Just use the base model, e.g., '1970 Ford Mustang').
-                - The explicit body style (e.g., 2-door coupe vs 4-door sedan/hardtop) based on the visible door cutlines.
+                - The explicit body style (e.g., 2-door coupe vs 4-door sedan/hardtop) based on the visible door cutlines. If it has 4 doors, emphasize it heavily.
+                - The hood geometry (e.g., completely flat hood with NO scoops). Explicitly state if it lacks hood scoops.
                 - The primary paint color and finish.
                 - The explicit headlight and grille configuration (e.g., "horizontally side-by-side dual headlights" vs "vertically stacked headlights"). This is critical to prevent the image generator from using the wrong model year's front fascia!
                 - Physically describe ONLY the visible decals, stripes, aero pieces (spoilers, splitters), and wheel types.
@@ -84,7 +85,9 @@ if source_upload and reference_upload:
                 {pose_description}
                 
                 CRITICAL FEATURE INSTRUCTION:
-                DO NOT add any spoilers, decals, stripes, factory trim packages, scoops, or modifications that are not explicitly written in the vehicle description above. The vehicle must remain exactly as described physically.
+                1. If the text says "4-door", you MUST physically draw four doors.
+                2. If the text says the hood is flat, you MUST draw a perfectly flat hood with NO HOOD SCOOPS.
+                3. DO NOT add any spoilers, decals, stripes, factory trim packages, scoops, or modifications that are not explicitly written in the vehicle description above. The vehicle must remain exactly as described physically.
                 
                 Ensure the background is a seamless studio cyclorama. Do not deviate from the specified camera angle, elevation, or lighting setup.
                 """
