@@ -58,7 +58,7 @@ if source_upload and reference_upload:
                 pose_prompt = """
                 Analyze this reference automotive photograph. Your goal is to precisely extract the camera positioning and vehicle orientation so it can be perfectly replicated.
                 Describe:
-                1. The exact geometric pose and direction the car is facing (e.g., "front-right 3/4 profile").
+                1. The direction the car's nose is pointing relative to the image frame (e.g., "The car is pointing towards the right edge of the image frame", "The car is pointing towards the left edge of the image frame"). CRITICAL: DO NOT use terms like 'front-left profile' or 'front-right profile' as image generators misinterpret these based on the driver's seat. Only describe which way the nose points in the frame.
                 2. The exact camera elevation/pitch relative to the car (Pay minute attention to this: are we looking slightly down at the hood and roof, or is it a low angle? Describe the exact vantage point height).
                 3. The studio lighting setup and environment.
                 Be obsessively specific about maintaining these minute spatial details and camera height. Return a concise paragraph.
