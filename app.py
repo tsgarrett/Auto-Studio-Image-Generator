@@ -10,15 +10,6 @@ client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 st.set_page_config(page_title="Auto Studio Generator", layout="centered")
 
-st.sidebar.title("Debug Info")
-if st.sidebar.button("Show Imagen Models"):
-    try:
-        model_names = [m.name for m in client.models.list() if "imagen" in m.name.lower()]
-        st.sidebar.write("Imagen models your key has access to:")
-        st.sidebar.write(model_names if model_names else "None found!")
-    except Exception as e:
-        st.sidebar.error(f"Failed to list: {e}")
-
 st.title("🚗 Auto Studio Image Generator")
 st.write("Upload a source car and a reference image to transfer the studio lighting and pose!")
 
@@ -71,10 +62,10 @@ if source_upload and reference_upload:
                 Ensure clean, controlled reflections and a subtle, soft grounding shadow directly beneath the tires, identical to the lighting quality of the reference.
                 """
 
-                # Using Imagen 3 for generating the final image
+                # Using Imagen 4 for generating the final image
                 # Note: This requires a Google Cloud billing account linked to your API key
                 response = client.models.generate_images(
-                    model="imagen-3.0-generate-002",
+                    model="imagen-4.0-ultra-generate-001",
                     prompt=final_prompt,
                     config=types.GenerateImagesConfig(
                         number_of_images=1,
