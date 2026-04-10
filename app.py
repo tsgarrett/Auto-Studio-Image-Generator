@@ -42,6 +42,7 @@ if source_upload and reference_upload:
                 Describe:
                 - The base Make and Model (CRITICAL: Avoid using specific trim package names like 'Mach 1', 'GT', or 'SS' as these cause AI to hallucinate factory features. Just use the base model, e.g., '1970 Ford Mustang').
                 - The primary paint color and finish.
+                - The explicit headlight and grille configuration (e.g., "horizontally side-by-side dual headlights" vs "vertically stacked headlights"). This is critical to prevent the image generator from using the wrong model year's front fascia!
                 - Physically describe ONLY the visible decals, stripes, aero pieces (spoilers, splitters), and wheel types.
                 
                 CRITICAL: YOU MUST NOT hallucinate or guess any features that are not explicitly visible in this specific photo. Do not assume factory defaults. Return the result as a concise, descriptive paragraph.
