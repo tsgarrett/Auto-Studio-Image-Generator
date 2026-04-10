@@ -10,6 +10,15 @@ client = genai.Client(api_key=st.secrets["GEMINI_API_KEY"])
 
 st.set_page_config(page_title="Auto Studio Generator", layout="centered")
 
+st.sidebar.title("Debug Info")
+if st.sidebar.button("Show Imagen Models"):
+    try:
+        model_names = [m.name for m in client.models.list() if "imagen" in m.name.lower()]
+        st.sidebar.write("Imagen models your key has access to:")
+        st.sidebar.write(model_names if model_names else "None found!")
+    except Exception as e:
+        st.sidebar.error(f"Failed to list: {e}")
+
 st.title("🚗 Auto Studio Image Generator")
 st.write("Upload a source car and a reference image to transfer the studio lighting and pose!")
 
