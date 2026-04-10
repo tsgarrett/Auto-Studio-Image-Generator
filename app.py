@@ -54,7 +54,12 @@ if source_upload and reference_upload:
                 
                 # 2. Analyze the Reference Image's Pose and Lighting
                 pose_prompt = """
-                Analyze this reference automotive photograph. Describe the exact geometric pose, camera angle, and direction the car is facing (e.g., "facing the front-right of the frame", "3/4 profile", "low angle"). Describe the studio lighting setup and background. Be extremely specific about the vehicle's spatial orientation. Return a concise paragraph.
+                Analyze this reference automotive photograph. Your goal is to precisely extract the camera positioning and vehicle orientation so it can be perfectly replicated.
+                Describe:
+                1. The exact geometric pose and direction the car is facing (e.g., "front-right 3/4 profile").
+                2. The exact camera elevation/pitch relative to the car (Pay minute attention to this: are we looking slightly down at the hood and roof, or is it a low angle? Describe the exact vantage point height).
+                3. The studio lighting setup and environment.
+                Be obsessively specific about maintaining these minute spatial details and camera height. Return a concise paragraph.
                 """
                 pose_res = client.models.generate_content(
                     model="gemini-2.5-flash",
@@ -67,14 +72,14 @@ if source_upload and reference_upload:
 
                 # 3. Build and send the final prompt
                 final_prompt = f"""
-                A professional, high-key automotive cyclorama studio photograph of the following vehicle: 
+                A professional, photorealistic automotive studio photograph of the following vehicle: 
                 {car_description}
                 
-                CRITICAL ORIENTATION & LIGHTING INSTRUCTION:
-                The vehicle MUST be depicted in the exact spatial orientation, pose, camera angle, and direction described here:
+                CRITICAL EXACT MATCH INSTRUCTION:
+                You MUST replicate the minute spatial details of the camera and car orientation exactly as described below. Pay absolute strict attention to the EXACT camera elevation, pitch, and the vehicle's yaw/facing direction:
                 {pose_description}
                 
-                Ensure the background is a seamless studio cyclorama, with clean, controlled reflections and a subtle, soft grounding shadow identical to the described lighting quality.
+                Ensure the background is a seamless studio cyclorama. Do not deviate from the specified camera angle, elevation, or lighting setup.
                 """
 
                 # Using Imagen 4 for generating the final image
