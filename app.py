@@ -1,5 +1,6 @@
 import streamlit as st
 from google import genai
+import io
 import PIL.Image
 
 # Access the API key securely from Streamlit's secrets
@@ -42,9 +43,9 @@ if source_upload and reference_upload:
                 Return the result as a concise, descriptive paragraph for an image generator.
                 """
                 
-                # Using Gemini 1.5 Flash for the vision analysis
+                # Using Gemini 3.1 Flash for the vision analysis
                 analysis_res = client.models.generate_content(
-                    model="gemini-1.5-flash",
+                    model="gemini-3.1-flash",
                     contents=[analysis_prompt, source_img]
                 )
                 car_description = analysis_res.text
