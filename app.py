@@ -47,9 +47,9 @@ if source_upload and reference_upload:
                 CRITICAL: YOU MUST NOT hallucinate or guess any features that are not explicitly visible in this specific photo. Do not assume factory defaults. Return the result as a concise, descriptive paragraph.
                 """
                 
-                # Using Gemini 2.5 Flash for the vision analysis
+                # Using Gemini 2.5 Pro for the vision analysis (much higher adherence)
                 analysis_res = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-2.5-pro",
                     contents=[analysis_prompt, source_img]
                 )
                 car_description = analysis_res.text
@@ -64,7 +64,7 @@ if source_upload and reference_upload:
                 Be obsessively specific about maintaining these minute spatial details and camera height. Return a concise paragraph.
                 """
                 pose_res = client.models.generate_content(
-                    model="gemini-2.5-flash",
+                    model="gemini-2.5-pro",
                     contents=[pose_prompt, reference_img]
                 )
                 pose_description = pose_res.text
@@ -94,7 +94,8 @@ if source_upload and reference_upload:
                     prompt=final_prompt,
                     config=types.GenerateImagesConfig(
                         number_of_images=1,
-                        output_mime_type="image/jpeg"
+                        output_mime_type="image/jpeg",
+                        negative_prompt="rear wing spoiler, large side stripes, text, lettering, Mach 1 badges, GT badges, extra aerodynamic modifications"
                     )
                 )
                 
