@@ -1,5 +1,6 @@
 import streamlit as st
 from google import genai
+from google.genai import types
 import io
 import PIL.Image
 
@@ -63,11 +64,14 @@ if source_upload and reference_upload:
                 # Using Gemini 2.5 Flash for generating the final image
                 response = client.models.generate_content(
                     model="gemini-2.5-flash",
-                    contents=[final_prompt, reference_img]
+                    contents=[final_prompt, reference_img],
+                    config=types.GenerateContentConfig(
+                        response_modalities=["IMAGE"]
+                    )
                 )
                 
                 # 3. Display the result
-                for part in response.parts:
+                for part in response.candidates[0].content.parts:
                     if part.inline_data:
                         final_image = PIL.Image.open(io.BytesIO(part.inline_data.data))
                         st.write("### Result")
