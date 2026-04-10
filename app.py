@@ -1,6 +1,7 @@
 import streamlit as st
 from google import genai
 from google.genai import types
+import urllib.parse
 import io
 import PIL.Image
 
@@ -61,21 +62,15 @@ if source_upload and reference_upload:
                 Ensure clean, controlled reflections and a subtle, soft grounding shadow directly beneath the tires, identical to the lighting quality of the reference.
                 """
 
-                # Using Imagen 3 for generating the final image
-                response = client.models.generate_images(
-                    model="imagen-3.0-generate-002",
-                    prompt=final_prompt,
-                    config=types.GenerateImagesConfig(
-                        number_of_images=1,
-                        output_mime_type="image/jpeg"
-                    )
-                )
+                # Using a free image generation API (Pollinations) as a fallback since the current API key lacks Imagen permissions.
+                # We feed it the highly-detailed prompt we just generated using Gemini.
+                st.info("Sending prompt to image generator...")
+                safe_prompt = urllib.parse.quote(final_prompt.strip())
+                image_url = f"https://image.pollinations.ai/prompt/{safe_prompt}?width=1024&height=1024&nologo=true&enhance=false"
                 
                 # 3. Display the result
-                for generated_image in response.generated_images:
-                    final_image = PIL.Image.open(io.BytesIO(generated_image.image.image_bytes))
-                    st.write("### Result")
-                    st.image(final_image, caption="Final Studio Shot", use_container_width=True)
+                st.write("### Result")
+                st.image(image_url, caption="Final Studio Shot (Powered by Pollinations)", use_container_width=True)
                         
             except Exception as e:
                 st.error(f"An error occurred: {e}")
