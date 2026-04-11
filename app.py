@@ -92,10 +92,10 @@ if source_upload and reference_upload:
                 Ensure the background is a seamless studio cyclorama. Do not deviate from the specified camera angle, elevation, or lighting setup.
                 """
 
-                # Using Imagen 3 Capability for generating the final image
+                # Using Imagen 4 for generating the final image
                 # Note: This requires a Google Cloud billing account linked to your API key
                 response = client.models.generate_images(
-                    model="imagen-3.0-capability-001",
+                    model="imagen-4.0-ultra-generate-001",
                     prompt=final_prompt,
                     config=types.GenerateImagesConfig(
                         number_of_images=1,
