@@ -39,8 +39,7 @@ if source_upload and reference_upload:
                 # 1. Analyze the car's "DNA"
                 analysis_prompt = """
                 Analyze this source car image and extract its visual DNA.
-                Describe:
-                - The base Make and Model (CRITICAL: Avoid using specific trim package names like 'Mach 1', 'GT', or 'SS' as these cause AI to hallucinate factory features. Just use the base model, e.g., '1970 Ford Mustang').
+                - A highly descriptive but generic vehicle baseline (CRITICAL: You MUST NOT name the actual vehicle brand, make, or model. Do not say "Pontiac", "Bonneville", or "Mustang". Naming the specific car triggers 2-door muscle car hallucinations in the final image generator. Instead, use a generic physical descriptor like "A large, luxurious 1960s classic American 4-door sedan").
                 - The explicit body style (e.g., 2-door coupe vs 4-door sedan/hardtop) based on the visible door cutlines. If it has 4 doors, emphasize it heavily.
                 - The hood geometry (e.g., completely flat hood with NO scoops). Explicitly state if it lacks hood scoops.
                 - The primary paint color and finish.
