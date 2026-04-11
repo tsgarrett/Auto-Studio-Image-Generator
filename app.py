@@ -106,7 +106,7 @@ if source_upload and reference_upload:
                 # ── Step 5: Generate with FLUX Kontext ───────────────────────────────
                 with st.spinner("Generating studio shot with FLUX Kontext... (this may take 30–60 seconds)"):
                     result = fal_client.run(
-                        "fal-ai/flux-pro/v1/kontext",
+                        "fal-ai/flux-pro/kontext/max",
                         arguments={
                             "prompt": final_prompt,
                             "image_url": image_url,
